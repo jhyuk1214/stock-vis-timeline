@@ -8,7 +8,7 @@ class StockAnalyzer:
         self.ticker = ticker.upper()
         self.stock = yf.Ticker(self.ticker)
     
-    def get_weekly_data(self, period="10y"):
+    def get_weekly_data(self, period="max"):
         try:
             hist = self.stock.history(period=period, interval="1wk", auto_adjust=True, prepost=True)
             if hist.empty:
