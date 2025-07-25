@@ -91,16 +91,16 @@ class ChartVisualizer:
     
     def _add_color_legend(self, ax):
         """색상 구간별 범례 추가"""
-        legend_labels = {
-            'blue': 'Very Cheap (< 200W MA)',
-            'green': 'Cheap (200W MA ~ 1.5x)',
-            'yellow': 'Fair Value (1.5x ~ 2.0x)',
-            'orange': 'Expensive (2.0x ~ 2.5x)',
-            'red': 'Very Expensive (> 2.5x)',
-            'gray': 'No Data'
-        }
+        legend_labels = [
+            ('red', 'Very Expensive (> 2.5x)'),
+            ('orange', 'Expensive (2.0x ~ 2.5x)'),
+            ('yellow', 'Fair Value (1.5x ~ 2.0x)'),
+            ('green', 'Cheap (200W MA ~ 1.5x)'),
+            ('blue', 'Very Cheap (< 200W MA)'),
+            ('gray', 'No Data')
+        ]
         
-        for color, label in legend_labels.items():
+        for color, label in legend_labels:
             ax.plot([], [], color=color, linewidth=3, label=label)
     
     def _get_zone_korean(self, zone_name):

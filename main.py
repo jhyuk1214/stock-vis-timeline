@@ -100,18 +100,22 @@ def main():
                     zone_counts = pd.Series(zones_timeline).value_counts()
                     total_points = len([z for z in zones_timeline if z != 'no_data'])
                     
-                    for zone, count in zone_counts.items():
-                        if zone != 'no_data':
+                    # 원하는 순서로 정렬
+                    zone_order = ['very_expensive', 'expensive', 'fair_value', 'cheap', 'very_cheap']
+                    
+                    for zone in zone_order:
+                        if zone in zone_counts:
+                            count = zone_counts[zone]
                             percentage = (count / total_points) * 100
                             zone_en = visualizer._get_zone_english(zone)
                             st.write(f"**{zone_en}**: {count} periods ({percentage:.1f}%)")
                 
                 with st.expander("Price Zone Definitions"):
-                    st.write("**Very Cheap (Blue)**: Price < 200W Moving Average")
-                    st.write("**Cheap (Green)**: 200W MA ≤ Price < 1.5 × 200W MA") 
-                    st.write("**Fair Value (Yellow)**: 1.5 × 200W MA ≤ Price < 2.0 × 200W MA")
-                    st.write("**Expensive (Orange)**: 2.0 × 200W MA ≤ Price < 2.5 × 200W MA")
                     st.write("**Very Expensive (Red)**: Price ≥ 2.5 × 200W MA")
+                    st.write("**Expensive (Orange)**: 2.0 × 200W MA ≤ Price < 2.5 × 200W MA")
+                    st.write("**Fair Value (Yellow)**: 1.5 × 200W MA ≤ Price < 2.0 × 200W MA")
+                    st.write("**Cheap (Green)**: 200W MA ≤ Price < 1.5 × 200W MA") 
+                    st.write("**Very Cheap (Blue)**: Price < 200W Moving Average")
         
         except ValueError as e:
             st.error(f"Error: {e}")
